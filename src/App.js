@@ -1,19 +1,24 @@
-import React,{Fragment} from "react";
+
+import React,{useEffect,useState,Fragment} from "react";
 import logo from './logo.svg';
 import './App.css';
-import Sizes from './components/Draw';
+import Draw from './components/Draw';
+import { render } from "@testing-library/react";
 function App() {
 
   function generate(e){
   const u=e.target.value;
   let w=[];
+console.log(document.getElementById('sizee'));
+if(document.getElementById('sizee')!=null){
+  document.getElementById('sizee').remove();
+}
   w=u.split("/");
-  console.log(w);
   let xl=0;
   let l=0;
   let sm=0;
   for(let i=0;i<w.length;i++){
-    if(w[i][w[i].length-1]=='l'){
+    if(w[i][w[i].length-1]=='L'){
       if(w[i].length==1){
         l=1;
       }else if(w[i][w[i].length-2]!='X'){
@@ -35,8 +40,9 @@ function App() {
       }
     }
   }
-  return(
-    <div>
+  render(
+    <div id='sizee'>
+      
   <Draw o="XL" num={xl}/>
   <Draw o="L" num={l}/>
   <Draw o="SM" num={sm}/>
@@ -45,8 +51,9 @@ function App() {
   }
   return (
     <Fragment>
-      <div>
-        
+      <div class='App-header'>
+
+<h1>Layout Generator</h1>        
         <label for="sizes">Select:</label>
 
 <select name="sizes" id="sizes" onChange={generate} >
